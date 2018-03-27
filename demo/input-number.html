@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcss.com/vue/2.5.13/vue.js"></script>
+    <style>
+        .fade-enter-active, .fade-leave-active {
+            transition: opacity .5s
+        }
+        .fade-enter, .fade-leave-active {
+            opacity: 0
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <button @click="show=!show">切换组件动画</button>
+    <transition name="fade">
+            <input-number
+                    :step="step"
+                    :min="min"
+                    :max="max"
+                    v-model="value"
+                    v-show="show"
+                    transiton="fade"></input-number>
+    </transition>
+</div>
+<script src="../js/input-number.js"></script>
+<script>
+    var app = new Vue({
+        el:'#app',
+        data:{
+            value:0,
+            min:0,
+            max:100,
+            step:10,
+            show:false
+        },
+        methods:{
+            gaibian1:function(m){
+                console.log(m);
+            }
+        }
+    })
+</script>
+</body>
+</html>

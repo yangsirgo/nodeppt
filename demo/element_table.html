@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+        }
+        .fixeddiv{
+            position:fixed;
+            bottom:0;
+            z-index: 1000000;
+            width: 100%;
+            /*height: 80px;*/
+            background-color: #fff;
+            height: 50px;
+            line-height: 50px;
+            text-align: right;
+        }
+    </style>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <script src="https://cdn.bootcss.com/vue/2.5.13/vue.js"></script>
+    <script src="https://cdn.bootcss.com/element-ui/2.2.1/index.js"></script>
+</head>
+<body>
+<div id="app">
+    <el-table
+            fixed
+            :data="tableData6"
+            border
+            height="auto"
+            show-summary
+            style="width: 100%; margin-top: 20px"
+            @selection-change="handleSelectionChange">
+        <el-table-column
+                type="selection"
+                width="55">
+        </el-table-column>
+        <el-table-column
+                prop="id"
+                label="ID"
+                sortable
+                width="180">
+        </el-table-column>
+        <el-table-column
+                prop="name"
+                label="姓名">
+        </el-table-column>
+        <el-table-column
+                prop="amount1"
+                sortable
+                label="数值 1（元）">
+        </el-table-column>
+        <el-table-column
+                prop="amount2"
+                sortable
+                label="数值 2（元）">
+        </el-table-column>
+        <el-table-column
+                prop="amount3"
+                label="数值 3（元）">
+            <template  slot-scope="scope">
+                <el-switch
+                        v-model="scope.row.amount3"
+                        active-color="#13ce66"
+                        inactive-color="#ff4949"
+                        @change="switchHandler(scope.$index, scope.row)">
+                </el-switch>
+            </template>
+        </el-table-column>
+        <el-table-column label="操作">
+            <template slot-scope="scope">
+                <el-button
+                        size="mini"
+                        @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+                <el-button
+                        size="mini"
+                        type="danger"
+                        @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+            </template>
+        </el-table-column>
+            <div class="fixeddiv"  slot="append">
+                <el-pagination
+                        @size-change="handleSizeChange"
+                        @current-change="handleCurrentChange"
+                        :current-page="currentPage4"
+                        :page-sizes="[100, 200, 300, 400]"
+                        :page-size="100"
+                        layout="total, sizes, prev, pager, next, jumper"
+                        :total="400">
+                </el-pagination>
+            </div>
+    </el-table>
+</div>
+<script>
+    var app = new  Vue({
+        el:"#app",
+        data:{
+            multipleSelection: [],
+            currentPage4: 4,
+            tableData6: [{
+                id: '12987122',
+                name: '王小虎',
+                amount1: '234',
+                amount2: '3.2',
+                amount3: 10
+            }, {
+                id: '12987123',
+                name: '王小虎',
+                amount1: '165',
+                amount2: '4.43',
+                amount3: false
+            }, {
+                id: '12987124',
+                name: '王小虎',
+                amount1: '324',
+                amount2: '1.9',
+                amount3: false
+            }, {
+                id: '12987125',
+                name: '王小虎',
+                amount1: '621',
+                amount2: '2.2',
+                amount3: true
+            }, {
+                id: '12987126',
+                name: '王小虎',
+                amount1: '539',
+                amount2: '4.1',
+                amount3: true
+            },{
+                id: '12987122',
+                name: '王小虎',
+                amount1: '234',
+                amount2: '3.2',
+                amount3: true
+            }, {
+                id: '12987123',
+                name: '王小虎',
+                amount1: '165',
+                amount2: '4.43',
+                amount3: 0
+            }, {
+                id: '12987124',
+                name: '王小虎',
+                amount1: '324',
+                amount2: '1.9',
+                amount3: 9
+            }, {
+                id: '12987125',
+                name: '王小虎',
+                amount1: '621',
+                amount2: '2.2',
+                amount3: 17
+            }, {
+                id: '12987126',
+                name: '王小虎',
+                amount1: '539',
+                amount2: '4.1',
+                amount3: 0
+            }, {
+                id: '12987124',
+                name: '王小虎',
+                amount1: '324',
+                amount2: '1.9',
+                amount3: 9
+            }, {
+                id: '12987125',
+                name: '王小虎',
+                amount1: '621',
+                amount2: '2.2',
+                amount3: 0
+            }, {
+                id: '12987126',
+                name: '王小虎',
+                amount1: '539',
+                amount2: '4.1',
+                amount3: 15
+            },{
+                id: '12987122',
+                name: '王小虎',
+                amount1: '234',
+                amount2: '3.2',
+                amount3: 0
+            }, {
+                id: '12987123',
+                name: '王小虎',
+                amount1: '165',
+                amount2: '4.43',
+                amount3: 12
+            }, {
+                id: '12987124',
+                name: '王小虎',
+                amount1: '324',
+                amount2: '1.9',
+                amount3: 0
+            }, {
+                id: '12987125',
+                name: '王小虎',
+                amount1: '621',
+                amount2: '2.2',
+                amount3: 17
+            }, {
+                id: '12987126',
+                name: '王小虎',
+                amount1: '539',
+                amount2: '4.1',
+                amount3: 0
+            }]
+        },
+        mounted:function(){
+            var t = this;
+            this.$nextTick(function(){
+                setTimeout(function(){
+                    $(window).trigger("resize");
+                },0)
+                $(window).resize(function(){
+                    $(".el-table__body-wrapper").css({
+                        height:$(window).height()-$(".el-table__header-wrapper").height()-$(".el-table__header-wrapper").offset().top-$(".el-table__footer-wrapper").height()
+                    })
+                })
+            })
+        },
+        methods:{
+            toggleSelection(rows) {
+                if (rows) {
+                    rows.forEach(row => {
+                        this.$refs.multipleTable.toggleRowSelection(row);
+                    });
+                } else {
+                    this.$refs.multipleTable.clearSelection();
+                }
+            },
+            handleSelectionChange(val) {
+                this.multipleSelection = val;
+            },
+            handleSelectionChange:function(val) {
+                console.log(val);
+                this.multipleSelection = val;
+            },
+            switchHandler:function(value,row){
+               console.log(value,row);
+            },
+            handleEdit:function(index, row) {
+                console.log(index, row);
+            },
+            handleDelete:function(index, row) {
+                console.log(index, row);
+            },
+            handleSizeChange:function(val) {
+                console.log(`每页 ${val} 条`);
+            },
+            handleCurrentChange:function(val) {
+                console.log(`当前页: ${val}`);
+            },
+            getSummaries:function(param) {
+                const { columns, data } = param;
+                const sums = [];
+                columns.forEach(function(column, index) {
+                    if (index === 0) {
+                    sums[index] = '总价';
+                    return;
+                }
+                const values = data.map(function(item){
+                    Number(item[column.property])
+                });
+                    if (!values.every(function(value){isNaN(value)})) {
+                        sums[index] = values.reduce(function(prev, curr){
+                                    const value = Number(curr);
+                        if (!isNaN(value)) {
+                            return prev + curr;
+                        } else {
+                            return prev;
+                        }
+                    }, 0);
+                    sums[index] += ' 元';
+                } else {
+                    sums[index] = 'N/A';
+                }
+            });
+                console.log(sums);
+                return "";
+            }
+        }
+    })
+
+</script>
+</body>
+</html>

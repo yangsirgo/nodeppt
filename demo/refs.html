@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <script src="https://cdn.bootcss.com/vue/2.5.13/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <p ref="p">{{parentData}}</p>
+    <button @click="handleEvent($event)"  ref="bu"><span>我是付组件</span></button>
+    <button @click="handleEvent($event)"  ref="bu"><span>我是付组件</span></button>
+    <my-child ref="myChild"></my-child>
+</div>
+<script type="text/javascript">
+Vue.component('my-child',{
+    template:"<button @click='handleEvent'>{{childData}}</button>",
+    data:function(){
+        return {
+            childData : "我是my-child组件"
+        }
+    },
+    methods:{
+        handleEvent:function(){
+            console.log(this.$parent);
+        }
+    }
+});
+    var vm = new Vue({
+        el:"#app",
+        data:{
+            parentData:"我是parentData"
+        },
+        methods:{
+            handleEvent:function(e){
+//                console.log(e.target)
+//                console.log(this.$refs.myChild.childData);
+                console.log(this.$refs);
+            }
+        }
+    });
+</script>
+</body>
+</html>
+

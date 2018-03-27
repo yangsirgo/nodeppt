@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <style>
+        *{
+            margin: 0;
+        }
+    </style>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <script src="https://cdn.bootcss.com/vue/2.5.13/vue.js"></script>
+    <script src="https://cdn.bootcss.com/element-ui/2.2.1/index.js"></script>
+    <script src="./layer/layer.js"></script>
+</head>
+<body>
+    <div id="app">
+        <el-button type="primary" @click="layerTest">table按钮</el-button>
+        <!--<el-button type="primary" @click="getTree">ztree按钮</el-button>-->
+        <div id="layer"  style="display:none">
+                <el-table :data="gridData">
+                    <el-table-column property="date" label="日期" width="150"></el-table-column>
+                    <el-table-column property="name" label="姓名" width="200"></el-table-column>
+                    <el-table-column property="address" label="地址">
+                        <template slot-scope="scope">
+                            <el-button
+                                    size="mini"
+                                    type="success"
+                                    @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+                            <el-button
+                                    size="mini"
+                                    type="info"
+                                    @click="deleteHandler(scope.$index, scope.row)">删除</el-button>
+                        </template>
+                    </el-table-column>
+                </el-table>
+        </div>
+        <div id="tableInner" style="display:none">
+            <el-form :inline="true" :model="formInline" class="demo-form-inline">
+                <el-form-item label="日期">
+                    <el-input v-model="formInline.user" placeholder="日期"></el-input>
+                </el-form-item>
+                <el-form-item label="姓名">
+                    <el-input v-model="formInline.region" placeholder="姓名"></el-input>
+                </el-form-item>
+            </el-form>
+        </div>
+    </div>
+
+<script>
+      var app = new Vue({
+          el:"#app",
+          data:{
+              formInline: {
+                  user: '',
+                  region: ''
+              },
+              gridData: [{
+                  date: '2016-05-02',
+                  name: '王小虎',
+                  address: '上海市普陀区金沙江路 1518 弄'
+              }, {
+                  date: '2016-05-04',
+                  name: '王小虎',
+                  address: '上海市普陀区金沙江路 1518 弄'
+              }, {
+                  date: '2016-05-01',
+                  name: '王小虎',
+                  address: '上海市普陀区金沙江路 1518 弄'
+              }, {
+                  date: '2016-05-03',
+                  name: '王小虎',
+                  address: '上海市普陀区金沙江路 1518 弄'
+              }],
+              value2: true,
+              switch:true,
+              appIf:true
+          },
+          methods:{
+              onSubmit:function() {
+                  console.log('submit!');
+              },
+              deleteHandler:function(a,b){
+                  layer.confirm('你确定要删除数据吗?', {
+                      btn: ['确定','取消'] //按钮
+                  }, function(){
+                      layer.msg('删除成功!', {icon: 1});
+                  }, function(){
+                      layer.msg('也可以这样', {
+                          time: 20000, //20s后自动关闭
+                          btn: ['明白了', '知道了']
+                      });
+                  });
+              },
+              handleEdit:function(a,b){
+                  var _t = this;
+                  console.log(a,b);
+                  layer.open({
+                      type: 1,
+                      title: false,
+                      closeBtn: 0,
+                      btn:["保存"],
+                      area: ["300px", "200px"],
+                      shadeClose: true,
+                      skin: 'yourclass',
+                      content: $("#tableInner"),
+                      success:function(){
+                          _t.formInline = {
+                              user: b.date,
+                              region: b.name
+                          }
+                      }
+                  });
+              },
+              layerTest:function(){
+                  var _t = this;
+                  layer.open({
+                      type: 1,
+                      title: false,
+                      closeBtn: 0,
+                      area: ["800px", "600px"],
+                      shadeClose: true,
+                      skin: 'yourclass',
+//                      content: $("#layer"),
+                      content: $("#layer"),
+                      success:function(){
+
+                      }
+                  });
+              }
+          }
+      })
+</script>
+</body>
+</html>

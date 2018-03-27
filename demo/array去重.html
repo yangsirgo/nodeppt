@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+  <script src="https://cdn.bootcss.com/vue/2.5.13/vue.js"></script>
+  <script src="https://cdn.bootcss.com/iview/2.9.2/iview.js"></script>
+  <link href="https://cdn.bootcss.com/iview/2.9.2/styles/iview.css" rel="stylesheet">
+  <link href="https://cdn.bootcss.com/bootstrap/3.1.1/css/bootstrap.css" rel="stylesheet">
+  <link href="./bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+  <script src="https://cdn.bootcss.com/layer/3.1.0/layer.js"></script>
+  <script src="https://cdn.bootcss.com/bootstrap/3.1.1/js/bootstrap.js"></script>
+  <script src="./bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js"></script>
+</head>
+
+<body>
+<div id="app">
+  <i-button @click="show">Click me!</i-button>
+  <Modal v-model="visible" title="Welcome">Welcome to iView</Modal>
+  <i-input value="2012-05-15 21:05" element-id="datetimepicker" placeholder="Enter something..." style="width: 300px"></i-input>
+  <input type="text" id="datetimepick">
+  <div id="appw">
+    <i-button type="info">Info</i-button>
+    <input type="text" v-model="aaa"/>
+    <i-input value="2012-05-15 21:05" element-id="datetimepicker12" placeholder="Enter something..." style="width: 300px"></i-input>
+  </div>
+</div>
+
+</body>
+<script>
+
+  var app = new Vue({
+    el: '#app',
+    data: {
+      visible: false,
+      aaa:"message"
+    },
+    mounted:function(){
+      this.$nextTick(function(){
+        $('#datetimepicker').datetimepicker({
+          format: 'yyyy-mm-dd hh:ii'
+        });
+        $('#datetimepicker12').datetimepicker({
+          format: 'yyyy-mm-dd hh:ii'
+        });
+        $('#datetimepick').datetimepicker({
+          format: 'yyyy-mm-dd hh:ii'
+        });
+      })
+    },
+    methods: {
+      show: function () {
+        this.aaa = "";
+        layer.open({
+          type: 1,
+          skin: 'layui-layer-rim', //加上边框
+          area: ['420px', '240px'], //宽高
+          content: $("#appw")
+        });
+//        this.visible = true;
+      }
+    }
+  })
+
+
+
+</script>
+</html>

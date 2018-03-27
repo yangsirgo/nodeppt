@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <script src="https://cdn.bootcss.com/vue/2.5.13/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <my-sister></my-sister>
+    <my-child></my-child>
+</div>
+<script type="text/javascript">
+    var bus = new Vue();
+    Vue.component('my-child',{
+        template:"<button @click='handleEvent'>我是my-child组件</button>",
+        methods:{
+            handleEvent:function(){
+                bus.$emit('on-message',"来自my-child的信息")
+            }
+        }
+    });
+    Vue.component('my-sister',{
+        template:"<p>{{sister}}</p>",
+        data:function(){
+            return{
+                sister:'我是my-sister组件'
+            }
+        },
+        mounted:function(){
+            var _this = this;
+            bus.$on('on-message',function(msg){
+                _this.sister = msg;
+            })
+        }
+    });
+    var vm = new Vue({
+        el:"#app"
+    });
+</script>
+</body>
+</html>
+

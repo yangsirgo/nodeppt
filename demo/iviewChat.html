@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.bootcss.com/iview/2.10.1/styles/iview.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/vue/2.5.15/vue.js"></script>
+    <script src="https://cdn.bootcss.com/iview/2.10.1/iview.min.js"></script>
+    <title>chat</title>
+</head>
+<body>
+    <div id="app">
+        <Card style="width: 350px">
+            <p slot="title">与XXX聊天</p>
+            <a href="#" slot="extra">
+                <Icon type="android-close" size="18"></Icon>
+            </a>
+            <div style="height:100px">
+
+            </div>
+            <div>
+                <Row :gutter="16">
+                    <i-col span="17">
+                        <i-input v-model="value" placeholder="请输入....."></i-input>
+                    </i-col>
+                    <i-col span="4">
+                        <i-button type="primary" icon="paper-airplane">发送</i-button>
+                    </i-col>
+                </Row>
+            </div>
+        </Card>
+    </div>
+</body>
+<script>
+    var app = new Vue({
+        el:"#app",
+        data:{
+            value:''
+        }
+    })
+</script>
+</html>

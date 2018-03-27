@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="https://cdn.bootcss.com/vue/2.5.13/vue.js"></script>
+
+</head>
+<body>
+<div id="app">
+    <my-child :width='aaa'></my-child>
+</div>
+<script type="text/javascript">
+    Vue.component('my-child',{
+        props:{
+            width:{
+                type:Number,
+                require:true
+            }
+        },
+        template:"<div :style='style'></div>",
+        computed:{
+            style:function(){
+                return {
+                    width:this.width+"px",
+                    backgroundColor:"red",
+                    height:this.width+"px"
+                }
+            }
+        }
+    });
+    var vm = new Vue({
+        el:"#app",
+        data:{
+            aaa:"100"
+        }
+    });
+    </script>
+</body>
+</html>

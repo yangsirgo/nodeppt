@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="https://cdn.bootcss.com/vue/2.5.13/vue.js"></script>
+    <style>
+        .class1{
+            background-color: red;
+        }
+        .class-a{
+            background-color: green;
+        }
+        .class-b{
+            background-color: blue;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+              <p
+                v-for='(data,key,index) in datas'
+                v-on:click="addClassFun(index)"
+                v-bind:class='{class1:index==qwerqwre}'>{{data.data}}</p>
+        <button  class="static" v-bind:class="{'class-a':isA,'class-b':!isA}" @click="changeColor"><span>点击按钮变颜色</span></button>
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                isA:true,
+                datas: {
+                    data1: {
+                        data: "测试1",
+                        ifAdd: 0,
+                        istrue:true
+                    },
+                    data2: {
+                        data: "测试2",
+                        ifAdd: 1
+                    },
+                    data3: {
+                        data: "测试3",
+                        ifAdd: 2
+                    }
+                },
+                qwerqwre:"0"
+            },
+            methods: {
+                addClassFun: function(index) {
+                    this.qwerqwre = index;
+                },
+                changeColor:function(){
+                    this.isA = !this.isA;
+                }
+            }
+        })
+    </script>
+</body>
+</html>
